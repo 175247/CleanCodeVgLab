@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanCodeLab3.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,9 +9,11 @@ namespace CleanCodeLab3.Utilities
     {
         private string _name;
         private double _price;
+        private List<Ingredient> _ingredients;
 
         public PizzaBuilder()
         {
+            _ingredients = new List<Ingredient>();
         }
 
         public PizzaBuilder SetName(string name)
@@ -23,6 +26,29 @@ namespace CleanCodeLab3.Utilities
         {
             _price = price;
             return this;
+        }
+
+        public PizzaBuilder SetIngredients(List<Ingredient> ingredients)
+        {
+            foreach (var ingredient in ingredients)
+            {
+                _ingredients.Add(ingredient);
+            }
+            return this;
+        }
+
+        public PizzaBuilder SetExtraTopping(Ingredient ingredient)
+        {
+            _ingredients.Add(ingredient);
+            return this;
+        }
+
+        /// <summary>
+        /// Fai la pizza amico mio!
+        /// </summary>
+        public Pizza BuildPizza()
+        {
+            return new Pizza(_name, _price, _ingredients);
         }
     }
 }

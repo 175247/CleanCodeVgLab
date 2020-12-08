@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanCodeLab3.Utilities;
+using System;
 
 namespace CleanCodeLab3
 {
@@ -6,7 +7,8 @@ namespace CleanCodeLab3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var factory = new PizzaFactory();
+            var pizza = factory.CreateMargerita();
         }
     }
 }

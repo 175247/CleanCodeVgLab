@@ -9,7 +9,19 @@ namespace CleanCodeLab3.Utilities
     {
         public Pizza CreateMargerita()
         {
-            return new Pizza();
+            var ingredients = new List<Ingredient>
+            {
+                new Ingredient { Name = "Ost", Price = 0},
+                new Ingredient { Name = "Tomatsås", Price = 0},
+            };
+
+            var pizzaMargerita = new PizzaBuilder()
+                                     .SetName("Margerita")
+                                     .SetPrice(85)
+                                     .SetIngredients(ingredients)
+                                     .BuildPizza();
+
+            return pizzaMargerita;
         }
     }
 }

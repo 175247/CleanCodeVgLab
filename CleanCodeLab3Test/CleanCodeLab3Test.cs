@@ -1,6 +1,7 @@
 using CleanCodeLab3.Models;
 using CleanCodeLab3.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace CleanCodeLab3Test
 {
@@ -27,13 +28,31 @@ namespace CleanCodeLab3Test
             Assert.AreEqual(expected, actual);
         }
 
-        //[TestMethod]
-        //public void pizza_builder_should_return_builder_with_properties()
-        //{
-        //    var pizzaBuilder = new PizzaBuilder("mu");
-        //    var expected = "moo";
-        //    var actual = pizzaBuilder.SetName("moo");
-        //    Assert.AreEqual(expected, actual._name);
-        //}
+        [TestMethod]
+        public void pizza_properties_should_work()
+        {
+            var ingredientList = new List<Ingredient>
+            {
+                new Ingredient { Name = "Vitlök", Price = 30 }
+            };
+
+            var pizza = new Pizza("Kebaben", 3, ingredientList);
+            var expected = new Ingredient { Name = "Vitlök", Price = 30 };
+            var actual = pizza.Ingredients[0];
+
+            Assert.AreEqual(expected.Name, actual.Name);
+        }
+
+        [TestMethod]
+        public void pizza_builder_should_build_pizzas_using_properties()
+        {
+            var pizzaBuilder = new PizzaBuilder();
+            var expected = "JockesPizza";
+            var actual = pizzaBuilder
+                         .SetName("JockesPizza")
+                         .BuildPizza();
+
+            Assert.AreEqual(expected, actual.Name);
+        }
     }
 }
