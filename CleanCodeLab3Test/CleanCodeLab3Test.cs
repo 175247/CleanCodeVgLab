@@ -8,15 +8,25 @@ namespace CleanCodeLab3Test
     [TestClass]
     public class CleanCodeLab3Test
     {
+        private readonly PizzaFactory _pizzaFactory;
+        private readonly DrinkFactory _drinkFactory;
+        private readonly PizzaBuilder _pizzaBuilder;
+
+        public CleanCodeLab3Test()
+        {
+            _pizzaFactory = new PizzaFactory();
+            _drinkFactory = new DrinkFactory();
+            _pizzaBuilder = new PizzaBuilder();
+        }
+
         // Some tests have been omitted as other tests
         // do the same thing, just names and classes differs.
         // Examples: Models > Ingredient, Drink
         [TestMethod]
         public void pizza_factory_should_return_a_pizza_when_called()
         {
-            var pizzaFactory = new PizzaFactory();
             var expected = typeof(Pizza);
-            var actual = pizzaFactory.CreateMargerita();
+            var actual = _pizzaFactory.CreateMargerita();
 
             Assert.AreEqual(expected, actual.GetType());
         }
@@ -39,18 +49,17 @@ namespace CleanCodeLab3Test
             };
 
             var pizza = new Pizza("Kebaben", 3, ingredientList);
-            var expected = new Ingredient { Name = "Vitlök", Price = 30 };
+            var expected = "Vitlök";
             var actual = pizza.Ingredients[0];
 
-            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected, actual.Name);
         }
 
         [TestMethod]
         public void pizza_builder_should_build_pizzas_using_properties()
         {
-            var pizzaBuilder = new PizzaBuilder();
             var expected = "JockesPizza";
-            var actual = pizzaBuilder
+            var actual = _pizzaBuilder
                          .SetName("JockesPizza")
                          .BuildPizza();
 
@@ -60,7 +69,6 @@ namespace CleanCodeLab3Test
         [TestMethod]
         public void test_the_kebab_creation()
         {
-            var factory = new PizzaFactory();
             var ingredients = new List<Ingredient>
             {
                 new Ingredient { Name = "Kebab", Price = 0 }
@@ -69,9 +77,17 @@ namespace CleanCodeLab3Test
             var expected = new Pizza("Kebabpizza", 105, ingredients)
                                .Ingredients[0].Name;
 
-            var actual = factory.CreateKebabPizza()
+            var actual = _pizzaFactory.CreateKebabPizza()
                                 .Ingredients[2].Name;
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void drink_factory_should_return_a_coke_when_requested()
+        {
+            var expected = "Coca cola";
+            var actual = _drinkFactory.CreateCocaCola();
+            Assert.AreEqual(expected, actual.Name);
         }
     }
 }
