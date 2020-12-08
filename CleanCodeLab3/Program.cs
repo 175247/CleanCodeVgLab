@@ -7,8 +7,6 @@ namespace CleanCodeLab3
     {
         static void Main(string[] args)
         {
-            var factory = new PizzaFactory();
-            var pizza = factory.CreateMargerita();
         }
     }
 }

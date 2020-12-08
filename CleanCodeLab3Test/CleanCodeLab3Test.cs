@@ -8,7 +8,9 @@ namespace CleanCodeLab3Test
     [TestClass]
     public class CleanCodeLab3Test
     {
-        // Some tests have been omitted as other tests do the same thing, just names and classes are different.
+        // Some tests have been omitted as other tests
+        // do the same thing, just names and classes differs.
+        // Examples: Models > Ingredient, Drink
         [TestMethod]
         public void pizza_factory_should_return_a_pizza_when_called()
         {
