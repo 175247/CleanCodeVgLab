@@ -16,5 +16,14 @@ namespace CleanCodeLab3Test
 
             Assert.AreEqual(expected, actual.GetType());
         }
+
+        [TestMethod]
+        public void pizza_builder_should_return_builder_with_properties()
+        {
+            var pizzaBuilder = new PizzaBuilder("mu");
+            var expected = "moo";
+            var actual = pizzaBuilder.SetName("moo");
+            Assert.AreEqual(expected, actual._name);
+        }
     }
 }
