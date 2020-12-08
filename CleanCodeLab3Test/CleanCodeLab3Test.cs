@@ -6,8 +6,18 @@ namespace CleanCodeLab3Test
     public class CleanCodeLab3Test
     {
         [TestMethod]
-        public void TestMethod1()
+        public void menu_instance_should_contain_item_instances()
         {
+            // Arrange
+            // Act
+            _menuInstance.GenerateMenuItems();
+            // Assert
+            Assert.IsNotNull(_menuInstance);
+            Assert.IsNotNull(_menuInstance.PizzaMenu);
+            Assert.IsNotNull(_menuInstance.DrinksMenu);
+            Assert.IsNotNull(_menuInstance.ExtraIngredientsTenCrowns);
+            Assert.IsNotNull(_menuInstance.ExtraIngredientsFifteenCrowns);
+            Assert.IsNotNull(_menuInstance.ExtraIngredientsTwentyCrowns);
         }
     }
 }
