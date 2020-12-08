@@ -1,11 +1,12 @@
-﻿using CleanCodeLab3.Models;
+﻿using CleanCodeLab3.Interfaces;
+using CleanCodeLab3.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CleanCodeLab3.Utilities
 {
-    public class PizzaFactory
+    public class PizzaFactory : IPizzaFactory
     {
         public Pizza AddToppingToPizza(Pizza pizza, Ingredient ingredient)
         {
