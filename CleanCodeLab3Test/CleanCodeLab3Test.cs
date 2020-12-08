@@ -54,5 +54,22 @@ namespace CleanCodeLab3Test
 
             Assert.AreEqual(expected, actual.Name);
         }
+
+        [TestMethod]
+        public void test_the_kebab_creation()
+        {
+            var factory = new PizzaFactory();
+            var ingredients = new List<Ingredient>
+            {
+                new Ingredient { Name = "Kebab", Price = 0 }
+            };
+
+            var expected = new Pizza("Kebabpizza", 105, ingredients)
+                               .Ingredients[0].Name;
+
+            var actual = factory.CreateKebabPizza()
+                                .Ingredients[2].Name;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
