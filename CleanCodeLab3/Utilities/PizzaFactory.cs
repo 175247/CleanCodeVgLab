@@ -7,6 +7,36 @@ namespace CleanCodeLab3.Utilities
 {
     public class PizzaFactory
     {
+        public Pizza AddToppingToPizza(Pizza pizza, Ingredient ingredient)
+        {
+            Pizza pizzaWithExtraTopping = null;
+            switch (pizza.Name)
+            {
+                case "Margerita":
+                    pizzaWithExtraTopping = CreateMargerita();
+                    break;
+                case "Hawaii":
+                    pizzaWithExtraTopping = CreateHawaii();
+                    break;
+                case "Kebabpizza":
+                    pizzaWithExtraTopping = CreateKebabPizza();
+                    break;
+                case "Quatro Stagioni":
+                    pizzaWithExtraTopping = CreateQuatroStagioni();
+                    break;
+                default:
+                    pizzaWithExtraTopping = null;
+                    break;
+            }
+
+            // Add null-check in caller to add pizza again.
+            pizzaWithExtraTopping = new PizzaBuilder()
+                                        .SetExtraTopping(ingredient)
+                                        .BuildPizza();
+
+            return pizzaWithExtraTopping;
+        }
+
         public Pizza CreateMargerita()
         {
             var ingredients = new List<Ingredient>

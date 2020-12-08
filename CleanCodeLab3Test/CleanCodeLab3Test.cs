@@ -2,6 +2,7 @@ using CleanCodeLab3.Models;
 using CleanCodeLab3.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CleanCodeLab3Test
 {
@@ -89,5 +90,35 @@ namespace CleanCodeLab3Test
             var actual = _drinkFactory.CreateCocaCola();
             Assert.AreEqual(expected, actual.Name);
         }
+
+        [TestMethod]
+        public void adding_extra_topping_through_factory_and_builder_should_add_additional_topping()
+        {
+            var extraIngredient = new Ingredient { Name = "Ham", Price = 10 };
+            var pizza = _pizzaFactory.CreateHawaii();
+            pizza.Ingredients.Add(extraIngredient);
+            var expected = pizza.Ingredients.Last();
+
+            var initialPizza = _pizzaFactory.CreateHawaii();
+            var pizzaWithExtraTopping = _pizzaFactory.AddToppingToPizza(initialPizza, extraIngredient);
+            var actual = pizzaWithExtraTopping.Ingredients.Last();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void adding_extra_topping_should_recreate_pizza_as_new_pizza_with_the_additional_topping()
+        {
+            var extraIngredient = new Ingredient { Name = "Ham", Price = 10 };
+            var expected = _pizzaFactory.CreateHawaii();
+            expected.Ingredients.Add(extraIngredient);
+
+            var initialPizza = _pizzaFactory.CreateHawaii();
+            var pizzaWithExtraTopping = _pizzaFactory.AddToppingToPizza(initialPizza, extraIngredient);
+            var actual = pizzaWithExtraTopping;
+
+            Assert.AreNotSame(initialPizza, actual);
+        }
+
     }
 }
