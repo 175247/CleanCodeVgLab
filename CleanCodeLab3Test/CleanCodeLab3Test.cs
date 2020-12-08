@@ -34,5 +34,20 @@ namespace CleanCodeLab3Test
             // Assert
             Assert.IsTrue(countAfterAddingTestPizza == countBeforeAddingTestPizza + 1);
         }
+
+        [TestMethod]
+        public void menu_instance_should_contain_items_with_correct_count()
+        {
+            // Arrange
+            var menuInstance = Menu.Instance;
+            // Act
+            // Assert
+            // To avoid test order descrepencies.
+            Assert.IsTrue(menuInstance.PizzaMenu.Count == 4 || menuInstance.PizzaMenu.Count == 5);
+            Assert.IsTrue(menuInstance.DrinksMenu.Count == 3);
+            Assert.IsTrue(menuInstance.ExtraIngredientsTenCrowns.Count == 5);
+            Assert.IsTrue(menuInstance.ExtraIngredientsFifteenCrowns.Count == 3);
+            Assert.IsTrue(menuInstance.ExtraIngredientsTwentyCrowns.Count == 2);
+        }
     }
 }
