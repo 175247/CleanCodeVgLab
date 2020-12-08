@@ -19,5 +19,20 @@ namespace CleanCodeLab3Test
             Assert.IsNotNull(_menuInstance.ExtraIngredientsFifteenCrowns);
             Assert.IsNotNull(_menuInstance.ExtraIngredientsTwentyCrowns);
         }
+
+        [TestMethod]
+        public void menu_instance_items_can_be_edited()
+        {
+            // Arrange
+            // Act
+            var countBeforeAddingTestPizza = _menuInstance.PizzaMenu.Count;
+            _menuInstance.PizzaMenu.Add(new FoodsAndDrinks
+            {
+                Name = "Test",
+            });
+            var countAfterAddingTestPizza = _menuInstance.PizzaMenu.Count;
+            // Assert
+            Assert.IsTrue(countAfterAddingTestPizza == countBeforeAddingTestPizza + 1);
+        }
     }
 }
