@@ -6,12 +6,11 @@ namespace CleanCodeLab3.Utilities
 {
     public class PizzaBuilder
     {
-        public string _name { get; set; }
+        private string _name;
         private double _price;
 
-        public PizzaBuilder(string name)
+        public PizzaBuilder()
         {
-            _name = name;
         }
 
         public PizzaBuilder SetName(string name)
