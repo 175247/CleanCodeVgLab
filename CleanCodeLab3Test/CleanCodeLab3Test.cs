@@ -120,5 +120,25 @@ namespace CleanCodeLab3Test
             Assert.AreNotSame(initialPizza, actual);
         }
 
+        [TestMethod]
+        public void inspecting_an_orders_total_price_should_return_correct_amount()
+        {
+            var drink = _drinkFactory.CreateSprite();
+            var pizza = _pizzaFactory.CreateKebabPizza();
+            var extraIngredient = new Ingredient { Name = "Ham", Price = 10 };
+            pizza = _pizzaFactory.AddToppingToPizza(pizza, extraIngredient);
+
+            var order = new Order
+            {
+                CustomerName = "Steffe",
+                Pizzas = new List<Pizza> { pizza },
+                Drinks = new List<Drink> { drink }
+            };
+
+            var expected = 140;
+            var actual = order.TotalPrice;
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }

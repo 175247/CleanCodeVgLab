@@ -31,6 +31,7 @@ namespace CleanCodeLab3.Utilities
 
             // Add null-check in caller to add pizza again.
             pizzaWithExtraTopping = new PizzaBuilder()
+                                        .PreparePizzaForChanges(pizzaWithExtraTopping)
                                         .SetExtraTopping(ingredient)
                                         .BuildPizza();
 

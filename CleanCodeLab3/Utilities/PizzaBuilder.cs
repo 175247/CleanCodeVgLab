@@ -37,6 +37,14 @@ namespace CleanCodeLab3.Utilities
             return this;
         }
 
+        public PizzaBuilder PreparePizzaForChanges(Pizza pizza)
+        {
+            _name = pizza.Name;
+            _price = pizza.Price;
+            _ingredients = pizza.Ingredients;
+            return this;
+        }
+
         public PizzaBuilder SetExtraTopping(Ingredient ingredient)
         {
             _ingredients.Add(ingredient);
