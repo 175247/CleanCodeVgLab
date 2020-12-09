@@ -1,3 +1,4 @@
+using CleanCodeLab3;
 using CleanCodeLab3.Models;
 using CleanCodeLab3.Utilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,12 +13,13 @@ namespace CleanCodeLab3Test
         private readonly PizzaFactory _pizzaFactory;
         private readonly DrinkFactory _drinkFactory;
         private readonly PizzaBuilder _pizzaBuilder;
-
+        private readonly Menu _menuInstance;
         public CleanCodeLab3Test()
         {
             _pizzaFactory = new PizzaFactory();
             _drinkFactory = new DrinkFactory();
             _pizzaBuilder = new PizzaBuilder();
+            _menuInstance = new Menu();
         }
 
         // Some tests have been omitted as other tests
@@ -75,6 +77,9 @@ namespace CleanCodeLab3Test
             Assert.IsTrue(menuInstance.ExtraIngredientsTenCrowns.Count == 5);
             Assert.IsTrue(menuInstance.ExtraIngredientsFifteenCrowns.Count == 3);
             Assert.IsTrue(menuInstance.ExtraIngredientsTwentyCrowns.Count == 2);
+        }
+
+        [TestMethod]
         public void ingredients_names_get_and_set_should_work()
         {
             var ingredient = new Ingredient { Name = "Mamma mu" };
