@@ -1,3 +1,4 @@
+using CleanCodeLab3;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CleanCodeLab3Test
@@ -5,12 +6,14 @@ namespace CleanCodeLab3Test
     [TestClass]
     public class CleanCodeLab3Test
     {
+        private Menu _menuInstance = Menu.Instance;
+
         [TestMethod]
         public void menu_instance_should_contain_item_instances()
         {
             // Arrange
             // Act
-            _menuInstance.GenerateMenuItems();
+            _menuInstance = Menu.Instance;
             // Assert
             Assert.IsNotNull(_menuInstance);
             Assert.IsNotNull(_menuInstance.PizzaMenu);
@@ -18,6 +21,7 @@ namespace CleanCodeLab3Test
             Assert.IsNotNull(_menuInstance.ExtraIngredientsTenCrowns);
             Assert.IsNotNull(_menuInstance.ExtraIngredientsFifteenCrowns);
             Assert.IsNotNull(_menuInstance.ExtraIngredientsTwentyCrowns);
+            _menuInstance = null;
         }
 
         [TestMethod]
@@ -25,6 +29,7 @@ namespace CleanCodeLab3Test
         {
             // Arrange
             // Act
+            _menuInstance = Menu.Instance;
             var countBeforeAddingTestPizza = _menuInstance.PizzaMenu.Count;
             _menuInstance.PizzaMenu.Add(new FoodsAndDrinks
             {
@@ -33,21 +38,22 @@ namespace CleanCodeLab3Test
             var countAfterAddingTestPizza = _menuInstance.PizzaMenu.Count;
             // Assert
             Assert.IsTrue(countAfterAddingTestPizza == countBeforeAddingTestPizza + 1);
+            _menuInstance = null;
         }
 
         [TestMethod]
         public void menu_instance_should_contain_items_with_correct_count()
         {
             // Arrange
-            var menuInstance = Menu.Instance;
+            _menuInstance = Menu.Instance;
             // Act
             // Assert
-            // To avoid test order descrepencies.
-            Assert.IsTrue(menuInstance.PizzaMenu.Count == 4 || menuInstance.PizzaMenu.Count == 5);
-            Assert.IsTrue(menuInstance.DrinksMenu.Count == 3);
-            Assert.IsTrue(menuInstance.ExtraIngredientsTenCrowns.Count == 5);
-            Assert.IsTrue(menuInstance.ExtraIngredientsFifteenCrowns.Count == 3);
-            Assert.IsTrue(menuInstance.ExtraIngredientsTwentyCrowns.Count == 2);
+            Assert.IsTrue(_menuInstance.PizzaMenu.Count == 5);
+            Assert.IsTrue(_menuInstance.DrinksMenu.Count == 3);
+            Assert.IsTrue(_menuInstance.ExtraIngredientsTenCrowns.Count == 5);
+            Assert.IsTrue(_menuInstance.ExtraIngredientsFifteenCrowns.Count == 3);
+            Assert.IsTrue(_menuInstance.ExtraIngredientsTwentyCrowns.Count == 2);
+            _menuInstance = null;
         }
     }
 }
