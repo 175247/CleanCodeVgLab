@@ -13,13 +13,12 @@ namespace CleanCodeLab3Test
         private readonly PizzaFactory _pizzaFactory;
         private readonly DrinkFactory _drinkFactory;
         private readonly PizzaBuilder _pizzaBuilder;
-        private readonly Menu _menuInstance;
+        private Menu _menuInstance = Menu.Instance;
         public CleanCodeLab3Test()
         {
             _pizzaFactory = new PizzaFactory();
             _drinkFactory = new DrinkFactory();
             _pizzaBuilder = new PizzaBuilder();
-            _menuInstance = new Menu();
         }
 
         // Some tests have been omitted as other tests
@@ -71,8 +70,8 @@ namespace CleanCodeLab3Test
         public void menu_instance_should_contain_items_with_correct_count()
         {
             // Arrange
-            _menuInstance = Menu.Instance;
             // Act
+            _menuInstance = Menu.Instance;
             // Assert
             Assert.IsTrue(_menuInstance.PizzaMenu.Count == 5);
             Assert.IsTrue(_menuInstance.DrinksMenu.Count == 3);
