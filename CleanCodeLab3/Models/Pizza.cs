@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace CleanCodeLab3.Models
 {
-    public class Pizza
+    public class Pizza : ServableItems
     {
-        public string Name { get; private set; }
-        public double Price { get; private set; }
         public List<Ingredient> Ingredients { get; private set; }
 
         public Pizza(string name, double price, List<Ingredient> ingredients)

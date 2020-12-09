@@ -20,11 +20,11 @@ namespace CleanCodeLab3
             }
         }
 
-        public List<FoodsAndDrinks> PizzaMenu { get; set; } = new List<FoodsAndDrinks>();
-        public List<FoodsAndDrinks> DrinksMenu { get; set; } = new List<FoodsAndDrinks>();
-        public List<FoodsAndDrinks> ExtraIngredientsTenCrowns { get; set; } = new List<FoodsAndDrinks>();
-        public List<FoodsAndDrinks> ExtraIngredientsFifteenCrowns { get; set; } = new List<FoodsAndDrinks>();
-        public List<FoodsAndDrinks> ExtraIngredientsTwentyCrowns { get; set; } = new List<FoodsAndDrinks>();
+        public List<MenuItems> PizzaMenu { get; set; } = new List<MenuItems>();
+        public List<MenuItems> DrinksMenu { get; set; } = new List<MenuItems>();
+        public List<MenuItems> ExtraIngredientsTenCrowns { get; set; } = new List<MenuItems>();
+        public List<MenuItems> ExtraIngredientsFifteenCrowns { get; set; } = new List<MenuItems>();
+        public List<MenuItems> ExtraIngredientsTwentyCrowns { get; set; } = new List<MenuItems>();
 
         private Menu()
         {
@@ -32,42 +32,32 @@ namespace CleanCodeLab3
 
         public void GenerateMenuItems()
         {
-            var pizzaMargerita = new FoodsAndDrinks("Margerita", new[] { "Ost", "Tomatsås" }, 85);
-            var pizzaHawaii = new FoodsAndDrinks("Hawaii", new[] { "Ost", "Tomatsås", "Skinka", "Ananas" }, 95);
-
-            var pizzaKebabpizza = new FoodsAndDrinks("Kebabpizza", new[]
-            { "Ost", "Tomatsås", "Kebab", "Champinjoner",
-              "Lök", "Feferoni", "Isbergssallad", "Tomat", "Kebabsås" }, 105);
-
-            var pizzaQuattroStagioni = new FoodsAndDrinks("Quattro Stagioni", new[]
-            { "Ost", "Tomatsås", "Skinka", "Räkor", "Musslor",
-            "Champinjoner", "Kronärtskocka" }, 115);
-
-            PizzaMenu.Add(pizzaMargerita);
-            PizzaMenu.Add(pizzaHawaii);
-            PizzaMenu.Add(pizzaKebabpizza);
-            PizzaMenu.Add(pizzaQuattroStagioni);
-
-            var drinksCocaCola = new FoodsAndDrinks("Coca Cola", new[] { "" }, 20);
-            var drinksFanta = new FoodsAndDrinks("Fanta", new[] { "" }, 20);
-            var drinksSprite = new FoodsAndDrinks("Sprite", new[] { "" }, 25);
+            var drinksCocaCola = new MenuItems { Name = "Coca Cola", Price = 20 };
+            var drinksFanta = new MenuItems { Name = "Fanta", Price = 20 };
+            var drinksSprite = new MenuItems { Name = "Sprite", Price = 25 };
 
             DrinksMenu.Add(drinksCocaCola);
             DrinksMenu.Add(drinksFanta);
             DrinksMenu.Add(drinksSprite);
 
-            var extraHam = new FoodsAndDrinks("Skinka", new[] { "" }, 10);
-            var extraPineapple = new FoodsAndDrinks("Ananas", new[] { "" }, 10);
-            var extraMushrooms = new FoodsAndDrinks("Champinjoner", new[] { "" }, 10);
-            var extraOnion = new FoodsAndDrinks("Lök", new[] { "" }, 10);
-            var extraKebabSauce = new FoodsAndDrinks("Kebabsås", new[] { "" }, 10);
+            var extraTomatoSauce = new MenuItems { Name = "Tomatsås", Price = 0 };
+            var extraCheese = new MenuItems { Name = "Ost", Price = 0 };
+            var extraFeferoni = new MenuItems { Name = "Feferoni", Price = 0 };
+            var extraLettuce = new MenuItems { Name = "Isbergssallad", Price = 0 };
+            var extraTomato = new MenuItems { Name = "Tomat", Price = 0 };
 
-            var extraShrimps = new FoodsAndDrinks("Räkor", new[] { "" }, 15);
-            var extraClams = new FoodsAndDrinks("Musslor", new[] { "" }, 15);
-            var extraArtichoke = new FoodsAndDrinks("Kronärtskocka", new[] { "" }, 15);
+            var extraHam = new MenuItems { Name = "Skinka", Price = 10 };
+            var extraPineapple = new MenuItems { Name = "Ananas", Price = 10 };
+            var extraMushrooms = new MenuItems { Name = "Champinjoner", Price = 10 };
+            var extraOnion = new MenuItems { Name = "Lök", Price = 10 };
+            var extraKebabSauce = new MenuItems { Name = "Kebabsås", Price = 10 };
 
-            var extraKebab = new FoodsAndDrinks("Kebab", new[] { "" }, 20);
-            var extraCoriander = new FoodsAndDrinks("Koriander", new[] { "" }, 20);
+            var extraShrimps = new MenuItems { Name = "Räkor", Price = 15 };
+            var extraClams = new MenuItems { Name = "Musslor", Price = 15 };
+            var extraArtichoke = new MenuItems { Name = "Kronärtskocka", Price = 15 };
+
+            var extraKebab = new MenuItems { Name = "Kebab", Price = 20 };
+            var extraCoriander = new MenuItems { Name = "Koriander", Price = 20 };
 
             ExtraIngredientsTenCrowns.Add(extraHam);
             ExtraIngredientsTenCrowns.Add(extraPineapple);
@@ -81,6 +71,47 @@ namespace CleanCodeLab3
 
             ExtraIngredientsTwentyCrowns.Add(extraKebab);
             ExtraIngredientsTwentyCrowns.Add(extraCoriander);
+
+            var pizzaMargerita = new MenuItems { Name = "Margerita", Ingredients = new List<MenuItems> { extraTomatoSauce, extraCheese }, Price = 85 };
+            var pizzaHawaii = new MenuItems { Name = "Hawaii", Ingredients = new List<MenuItems> { extraTomatoSauce, extraCheese, extraHam, extraPineapple }, Price = 95 };
+
+            var pizzaKebabpizza = new MenuItems
+            {
+                Name = "Kebabpizza",
+                Ingredients = new List<MenuItems> 
+                { 
+                    extraTomatoSauce, extraCheese,
+                    extraKebab, extraMushrooms, 
+                    extraOnion, extraFeferoni, 
+                    extraLettuce, extraTomato, extraKebabSauce,
+                },
+                Price = 105
+            };
+
+            var pizzaQuattroStagioni = new MenuItems
+            {
+                Name = "Quattro Stagioni",
+                Ingredients = new List<MenuItems> 
+                {
+                    extraTomatoSauce, extraCheese,
+                    extraHam, extraShrimps, extraClams,
+                },
+                Price = 115
+            };
+
+            PizzaMenu.Add(pizzaMargerita);
+            PizzaMenu.Add(pizzaHawaii);
+            PizzaMenu.Add(pizzaKebabpizza);
+            PizzaMenu.Add(pizzaQuattroStagioni);
+        }
+
+        public void ClearMenu()
+        {
+            _instance.PizzaMenu.Clear();
+            _instance.DrinksMenu.Clear();
+            _instance.ExtraIngredientsTenCrowns.Clear();
+            _instance.ExtraIngredientsFifteenCrowns.Clear();
+            _instance.ExtraIngredientsTwentyCrowns.Clear();
         }
     }
 }

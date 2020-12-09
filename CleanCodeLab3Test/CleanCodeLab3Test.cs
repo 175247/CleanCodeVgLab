@@ -13,16 +13,18 @@ namespace CleanCodeLab3Test
         private readonly PizzaFactory _pizzaFactory;
         private readonly DrinkFactory _drinkFactory;
         private readonly PizzaBuilder _pizzaBuilder;
-        private Menu _menuInstance = Menu.Instance;
+        private Menu _menuInstance;
+
         public CleanCodeLab3Test()
         {
             _pizzaFactory = new PizzaFactory();
             _drinkFactory = new DrinkFactory();
             _pizzaBuilder = new PizzaBuilder();
-        }
+            _menuInstance = Menu.Instance;
+    }
 
         // Some tests have been omitted as other tests
-        // do the same thing, just names and classes differs.
+        // do the same thing, just names and classes differ.
         // Examples: Models > Ingredient, Drink
         [TestMethod]
         public void pizza_factory_should_return_a_pizza_when_called()
@@ -37,8 +39,10 @@ namespace CleanCodeLab3Test
         public void menu_instance_should_contain_item_instances()
         {
             // Arrange
+            _menuInstance.ClearMenu();
             // Act
             _menuInstance = Menu.Instance;
+            _menuInstance.GenerateMenuItems();
             // Assert
             Assert.IsNotNull(_menuInstance);
             Assert.IsNotNull(_menuInstance.PizzaMenu);
@@ -46,39 +50,40 @@ namespace CleanCodeLab3Test
             Assert.IsNotNull(_menuInstance.ExtraIngredientsTenCrowns);
             Assert.IsNotNull(_menuInstance.ExtraIngredientsFifteenCrowns);
             Assert.IsNotNull(_menuInstance.ExtraIngredientsTwentyCrowns);
-            _menuInstance = null;
         }
 
         [TestMethod]
         public void menu_instance_items_can_be_edited()
         {
             // Arrange
+            _menuInstance.ClearMenu();
             // Act
             _menuInstance = Menu.Instance;
+            _menuInstance.GenerateMenuItems();
             var countBeforeAddingTestPizza = _menuInstance.PizzaMenu.Count;
-            _menuInstance.PizzaMenu.Add(new FoodsAndDrinks
+            _menuInstance.PizzaMenu.Add(new MenuItems
             {
                 Name = "Test",
             });
             var countAfterAddingTestPizza = _menuInstance.PizzaMenu.Count;
             // Assert
             Assert.IsTrue(countAfterAddingTestPizza == countBeforeAddingTestPizza + 1);
-            _menuInstance = null;
         }
 
         [TestMethod]
         public void menu_instance_should_contain_items_with_correct_count()
         {
             // Arrange
+            _menuInstance.ClearMenu();
             // Act
             _menuInstance = Menu.Instance;
+            _menuInstance.GenerateMenuItems();
             // Assert
-            Assert.IsTrue(_menuInstance.PizzaMenu.Count == 5);
+            Assert.IsTrue(_menuInstance.PizzaMenu.Count == 4);
             Assert.IsTrue(_menuInstance.DrinksMenu.Count == 3);
             Assert.IsTrue(_menuInstance.ExtraIngredientsTenCrowns.Count == 5);
             Assert.IsTrue(_menuInstance.ExtraIngredientsFifteenCrowns.Count == 3);
             Assert.IsTrue(_menuInstance.ExtraIngredientsTwentyCrowns.Count == 2);
-            _menuInstance = null;
         }
 
         [TestMethod]
@@ -188,6 +193,5 @@ namespace CleanCodeLab3Test
             var actual = order.TotalPrice;
             Assert.AreEqual(expected, actual);
         }
-
     }
 }

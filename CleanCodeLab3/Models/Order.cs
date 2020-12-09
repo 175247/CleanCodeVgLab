@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace CleanCodeLab3.Models
 {
@@ -29,14 +27,14 @@ namespace CleanCodeLab3.Models
             double pizzaPrice = GetPizzaPrices();
             double drinksPrice = GetDrinkPrices();
             double orderPrice = pizzaPrice + drinksPrice;
-            
+
             return orderPrice;
         }
 
         private double GetPizzaPrices()
         {
             double pizzaPrice = 0;
-            
+
             foreach (var pizza in Pizzas)
             {
                 pizzaPrice += pizza.Price;

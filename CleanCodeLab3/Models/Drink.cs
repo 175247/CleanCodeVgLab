@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CleanCodeLab3.Models
+﻿namespace CleanCodeLab3.Models
 {
-    public class Drink
+    public class Drink : ServableItems
     {
-        public string Name { get; set; }
-        public double Price { get; set; }
     }
 }
