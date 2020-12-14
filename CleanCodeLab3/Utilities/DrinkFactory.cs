@@ -7,7 +7,7 @@ namespace CleanCodeLab3.Utilities
     {
         public Drink CreateCocaCola()
         {
-            return new Drink { Name = "Coca cola", Price = 20 };
+            return new Drink { Name = "Coca Cola", Price = 20 };
         }
 
         public Drink CreateFanta()

@@ -17,12 +17,14 @@ namespace CleanCodeLab3.Utilities
         public PizzaBuilder SetName(string name)
         {
             _name = name;
+
             return this;
         }
 
         public PizzaBuilder SetPrice(double price)
         {
             _price = price;
+
             return this;
         }
 
@@ -32,6 +34,7 @@ namespace CleanCodeLab3.Utilities
             {
                 _ingredients.Add(ingredient);
             }
+
             return this;
         }
 
@@ -40,21 +43,23 @@ namespace CleanCodeLab3.Utilities
             _name = pizza.Name;
             _price = pizza.Price;
             _ingredients = pizza.Ingredients;
+
             return this;
         }
 
-        public PizzaBuilder SetExtraTopping(Ingredient ingredient)
+        public PizzaBuilder SetExtraTopping(List<Ingredient> ingredients)
         {
-            _ingredients.Add(ingredient);
+            foreach (var ingredient in ingredients)
+            {
+                _ingredients.Add(ingredient);
+            }
+
             return this;
         }
 
-        /// <summary>
-        /// Fai la pizza amico mio!
-        /// </summary>
         public Pizza BuildPizza()
         {
-            return new Pizza(_name, _price, _ingredients);
+            return new Pizza(_name, _ingredients, _price);
         }
     }
 }

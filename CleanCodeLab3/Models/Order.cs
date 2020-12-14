@@ -5,14 +5,17 @@ namespace CleanCodeLab3.Models
     public class Order
     {
         private double _totalPrice => CalculateTotalPrice();
-
+        public enum OrderStatus { Completed, Cancelled }
         public string CustomerName { get; set; }
         public List<Pizza> Pizzas { get; set; }
         public List<Drink> Drinks { get; set; }
         public double TotalPrice { get => _totalPrice; }
+        public OrderStatus Status { get; set; }
 
         public Order()
         {
+            Pizzas = new List<Pizza>();
+            Drinks = new List<Drink>();
         }
 
         public Order(string customerName, Pizza pizza, Drink drink)

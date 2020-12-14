@@ -9,29 +9,36 @@ namespace CleanCodeLab3.Utilities
         public Pizza AddToppingToPizza(Pizza pizza, Ingredient ingredient)
         {
             Pizza pizzaWithExtraTopping = null;
+            List<Ingredient> existingIngredients = pizza.Ingredients;
+            
+            existingIngredients.Add(ingredient);
+
             switch (pizza.Name)
             {
                 case "Margerita":
                     pizzaWithExtraTopping = CreateMargerita();
                     break;
+
                 case "Hawaii":
                     pizzaWithExtraTopping = CreateHawaii();
                     break;
+
                 case "Kebabpizza":
                     pizzaWithExtraTopping = CreateKebabPizza();
                     break;
+
                 case "Quatro Stagioni":
-                    pizzaWithExtraTopping = CreateQuatroStagioni();
+                    pizzaWithExtraTopping = CreateQuattroStagioni();
                     break;
+
                 default:
                     pizzaWithExtraTopping = null;
                     break;
             }
 
-            // Add null-check in caller to add pizza again.
             pizzaWithExtraTopping = new PizzaBuilder()
                                         .PreparePizzaForChanges(pizzaWithExtraTopping)
-                                        .SetExtraTopping(ingredient)
+                                        .SetExtraTopping(existingIngredients)
                                         .BuildPizza();
 
             return pizzaWithExtraTopping;
@@ -97,7 +104,7 @@ namespace CleanCodeLab3.Utilities
             return pizzaKebab;
         }
 
-        public Pizza CreateQuatroStagioni()
+        public Pizza CreateQuattroStagioni()
         {
             var ingredients = new List<Ingredient>
             {
@@ -110,13 +117,13 @@ namespace CleanCodeLab3.Utilities
                 new Ingredient { Name = "Kronärtskocka", Price = 0},
             };
 
-            var pizzaQuatroStagioni = new PizzaBuilder()
-                                          .SetName("Quatro Stagioni")
+            var pizzaQuattroStagioni = new PizzaBuilder()
+                                          .SetName("Quattro Stagioni")
                                           .SetPrice(115)
                                           .SetIngredients(ingredients)
                                           .BuildPizza();
 
-            return pizzaQuatroStagioni;
+            return pizzaQuattroStagioni;
         }
     }
 }

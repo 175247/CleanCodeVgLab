@@ -1,12 +1,11 @@
-﻿using CleanCodeLab3.Utilities;
-using System;
-
-namespace CleanCodeLab3
+﻿namespace CleanCodeLab3
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            var orderSystem = new OrderSystem();
+            orderSystem.Run();
         }
     }
 }

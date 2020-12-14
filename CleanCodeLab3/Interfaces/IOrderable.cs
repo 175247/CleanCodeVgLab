@@ -1,6 +1,6 @@
-﻿namespace CleanCodeLab3.Models
+﻿namespace CleanCodeLab3.Interfaces
 {
-    public class ServableItems
+    public interface IOrderable
     {
         public string Name { get; set; }
         public double Price { get; set; }
