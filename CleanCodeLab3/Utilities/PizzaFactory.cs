@@ -27,7 +27,7 @@ namespace CleanCodeLab3.Utilities
                     pizzaWithExtraTopping = CreateKebabPizza();
                     break;
 
-                case "Quatro Stagioni":
+                case "Quattro Stagioni":
                     pizzaWithExtraTopping = CreateQuattroStagioni();
                     break;
 
