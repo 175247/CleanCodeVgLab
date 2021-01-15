@@ -201,7 +201,6 @@ namespace CleanCodeLab3
             Console.Clear();
 
             _helpers.PrintToConsole(DisplayCustomerOrder());
-
             _helpers.PrintToConsole(string.Format("{0}Tryck 1 om du vill slutföra köpet.{0}Tryck 2 om du vill avbryta din order.{0}Tryck 3 om du vill ändra eller lägga till något.", Environment.NewLine));
 
             string message = "";
