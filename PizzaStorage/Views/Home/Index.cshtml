@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Ingredient>
+﻿@model List<Ingredient>
 
 @{
     var status = TempData["status"];
@@ -18,8 +18,11 @@
             <input type="hidden" name="Id" value="@item.Id" />
             <label id="@item.Name-label-name">@item.Name:</label>
             <label id="@item.Name-label-stock">@item.AmountInStock</label>
-            @Html.ActionLink("Add", "RestockIngredient", "Home", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
-            @Html.ActionLink("Reduce", "ReduceIngredientInStorage", "Home", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
+            @*<a href="/Home/RestockIngredient?id=@item.Id&name=@item.Name&price=@item.Price&amounInStock=@item.AmountInStock" name="ingredient">Increase stock</a>*@
+            <a id="@item.Name-anchor-increase" asp-controller="Home" asp-action="RestockIngredient" asp-route-id="@item.Id">Increase stock</a>
+            <a id="@item.Name-anchor-reduce" asp-controller="Home" asp-action="ReduceIngredientInStorage" asp-route-id="@item.Id">Reduce stock</a>
+            @*@Html.ActionLink("Add", "RestockIngredient", "Home", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
+            @Html.ActionLink("Reduce", "ReduceIngredientInStorage", "Home", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })*@
         </div>
     }
     <br />

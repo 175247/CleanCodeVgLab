@@ -32,16 +32,18 @@ namespace PizzaStorage.Controllers
             return View(allIngredients);
         }
 
-        public async Task<IActionResult> RestockIngredient(Ingredient ingredient)
+        public async Task<IActionResult> RestockIngredient(int id)
         {
+            var ingredient = _unitOfWork.Ingredients.Get(id);
             var requestUri = "http://localhost/api/storage/add";
             HttpContent requestContent = _requestService.CreateStringContent(ingredient);
             await client.PostAsync(requestUri, requestContent);
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> ReduceIngredientInStorage(Ingredient ingredient)
+        public async Task<IActionResult> ReduceIngredientInStorage(int id)
         {
+            var ingredient = _unitOfWork.Ingredients.Get(id);
             var requestUri = "http://localhost/api/storage/remove";
             HttpContent requestContent = _requestService.CreateStringContent(ingredient);
             await client.PostAsync(requestUri, requestContent);
