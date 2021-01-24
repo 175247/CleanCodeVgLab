@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<Ingredient>
 
 @{
-    List<Ingredient> ingredientList = new List<Ingredient>();
-    foreach (var item in Model)
-    {
-        ingredientList.Add(item);
-    }
+    var status = TempData["status"];
 }
 
 <div class="text-center">
+    <br />
+    <br />
+    <div id="statusInformation">
+        <label>@status</label>
+    </div>
+    <br />
+    <br />
     @foreach (var item in Model)
     {
         <div>
@@ -22,4 +25,7 @@
     <br />
     <br />
     @Html.ActionLink("Mass delivery!", "MassDelivery", "Home")
+    <br />
+    <br />
+    @Html.ActionLink("Order a margerita!", "OrderPizza", "Home")
 </div>

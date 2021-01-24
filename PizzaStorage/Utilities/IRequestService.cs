@@ -10,5 +10,6 @@ namespace PizzaStorage.Utilities
     public interface IRequestService
     {
         HttpContent CreateStringContent(Ingredient ingredient);
+        HttpContent CreateStringContent(List<Ingredient> ingredientsList);
     }
 }

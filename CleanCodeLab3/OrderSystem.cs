@@ -1,7 +1,12 @@
 ﻿using CleanCodeLab3.Models;
 using CleanCodeLab3.Utilities;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using static CleanCodeLab3.Models.Order;
 
 namespace CleanCodeLab3
@@ -13,6 +18,7 @@ namespace CleanCodeLab3
         private readonly PizzaService _pizzaService;
         private readonly DrinkService _drinkService;
         public Order CustomerOrder { get; set; }
+        static HttpClient client = new HttpClient();
 
         public OrderSystem()
         {
@@ -210,7 +216,7 @@ namespace CleanCodeLab3
             switch (userChoice)
             {
                 case 1:
-                    message = SetOrderToComplete();
+                    message = SetOrderToComplete().GetAwaiter().GetResult();
                     _helpers.PrintToConsole(message);
                     break;
 
@@ -246,12 +252,32 @@ namespace CleanCodeLab3
             CustomerOrder.Drinks.Remove(drink);
         }
 
-        public string SetOrderToComplete()
+        public async Task<string> SetOrderToComplete()
         {
             //Console.Clear();
-            CustomerOrder.Status = OrderStatus.Completed;
-            var message = "Tack för ditt köp och välkommen åter!";
+            var message = "";
+            var allIngredients = new List<Ingredient>();
+            foreach (var pizza in CustomerOrder.Pizzas)
+            {
+                foreach (var ingredient in pizza.Ingredients)
+                {
+                    allIngredients.Add(ingredient);
+                }
+            }
 
+            var requestUri = "http://localhost/api/storage/order";
+            HttpContent requestContent = new StringContent(JsonConvert.SerializeObject(allIngredients), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(requestUri, requestContent);
+            if (response.IsSuccessStatusCode)
+            {
+                CustomerOrder.Status = OrderStatus.Completed;
+                message = "Tack för ditt köp och välkommen åter!";
+            }
+            else
+            {
+                message = "Inte tillräckligt med ingredienser, försök igen efter nästa leverans";
+            }
+            SetOrderToCancelled();
             return message;
         }
 

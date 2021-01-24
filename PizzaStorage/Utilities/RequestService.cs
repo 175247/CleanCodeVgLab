@@ -15,5 +15,10 @@ namespace PizzaStorage.Utilities
         {
             return new StringContent(JsonConvert.SerializeObject(ingredient), Encoding.UTF8, "application/json");
         }
+
+        public HttpContent CreateStringContent(List<Ingredient> ingredientsList)
+        {
+            return new StringContent(JsonConvert.SerializeObject(ingredientsList), Encoding.UTF8, "application/json");
+        }
     }
 }

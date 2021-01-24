@@ -102,16 +102,30 @@ namespace PizzaStorage.Controllers
 
         [HttpPost]
         [Route("order")]
-        public IActionResult FinalizeOrder(List<Ingredient> ingredientsList)
+        public IActionResult FinalizeOrder([FromBody] object requestContent)
         {
+            var ingredientsList = _storageService.ConvertToIngredientList(requestContent);
+
             if (ingredientsList.Count <= 0)
+            {
+                return BadRequest();
+            }
+
+            if (ingredientsList[0].Id == 0)
             {
                 return BadRequest();
             }
             else
             {
-                _storageService.ReduceOrderedIngredients(ingredientsList);
-                return Ok();
+                var isSuccess = _storageService.ReduceOrderedIngredients(ingredientsList);
+                if (isSuccess == false)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok();
+                }
             }
         }
     }

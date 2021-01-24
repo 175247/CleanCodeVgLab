@@ -37,6 +37,13 @@ namespace PizzaStorage.Utilities
             return ingredient;
         }
 
+        public List<Ingredient> ConvertToIngredientList(object value)
+        {
+            var stringContent = value.ToString();
+            var ingredientList = JsonConvert.DeserializeObject<List<Ingredient>>(stringContent);
+            return ingredientList;
+        }
+
         public void ReduceAmountInStock(Ingredient ingredient)
         {
             ingredient = _unitOfWork.Ingredients.Get(ingredient.Id);
@@ -61,10 +68,11 @@ namespace PizzaStorage.Utilities
             _unitOfWork.Complete();
         }
 
-        public void ReduceOrderedIngredients(List<Ingredient> ingredientsList)
+        public bool ReduceOrderedIngredients(List<Ingredient> ingredientsList)
         {
             // Return bool if loops can't finish and reduce all stores properly
             // In such a case, the pizza shouldn't be able to finish or be ordered.
+            bool isIngredientPresent = false;
             var allIngredientsInDatabase = _unitOfWork.Ingredients.GetAllIngredients().ToList();
             foreach (var orderedIngredient in ingredientsList)
             {
@@ -73,6 +81,7 @@ namespace PizzaStorage.Utilities
                     if (orderedIngredient.Name == ingredient.Name
                         && ingredient.AmountInStock <= 0)
                     {
+                        isIngredientPresent = false;
                         break;
                     }
                     else
@@ -80,11 +89,20 @@ namespace PizzaStorage.Utilities
                         if (orderedIngredient.Name == ingredient.Name)
                         {
                             ingredient.AmountInStock -= 1;
+                            isIngredientPresent = true;
                         }
                     }
                 }
             }
-            _unitOfWork.Complete();
+            if (isIngredientPresent == false)
+            {
+                return isIngredientPresent;
+            }
+            else
+            {
+                _unitOfWork.Complete();
+                return isIngredientPresent;
+            }
         }
     }
 }
