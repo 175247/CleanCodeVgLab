@@ -1,8 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Ingredient>
+
+@{
+    List<Ingredient> ingredientList = new List<Ingredient>();
+    foreach (var item in Model)
+    {
+        ingredientList.Add(item);
+    }
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @foreach (var item in Model)
+    {
+        <div>
+            <input type="hidden" name="Id" value="@item.Id" />
+            <label id="@item.Name-label-name">@item.Name:</label>
+            <label id="@item.Name-label-stock">@item.AmountInStock</label>
+            @Html.ActionLink("Add", "RestockIngredient", "Storage", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
+            @Html.ActionLink("Reduce", "ReduceIngredientInStorage", "Storage", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
+        </div>
+    }
+    <br />
+    <br />
+    @Html.ActionLink("Mass delivery!", "MassDelivery", "Storage")
 </div>

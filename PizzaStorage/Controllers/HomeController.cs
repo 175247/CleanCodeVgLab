@@ -14,16 +14,15 @@ namespace PizzaStorage.Controllers
     {
         private IUnitOfWork _unitOfWork;
 
-        public HomeController(UnitOfWork unitOfWork)
+        public HomeController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            var allIngredients = _unitOfWork.Ingredients.GetAll();
+            var allIngredients = _unitOfWork.Ingredients.GetAllIngredients();
             _unitOfWork.Complete();
-
             return View(allIngredients);
         }
 

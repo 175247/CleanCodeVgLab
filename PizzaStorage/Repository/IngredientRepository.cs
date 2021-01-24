@@ -13,6 +13,7 @@ namespace PizzaStorage.Repository
         public IngredientRepository(IngredientDbContext context)
             : base(context)
         {
+            this.context = context;
         }
 
         public IEnumerable<Ingredient> GetAllIngredients()
@@ -20,9 +21,19 @@ namespace PizzaStorage.Repository
             return context.Ingredients.ToList();
         }
 
-        public Ingredient GetSpecificIngredient(string ingredientName)
+        public IEnumerable<string> CheckForMissingIngredients(IEnumerable<Ingredient> ingredientList)
         {
-            return (Ingredient)context.Ingredients.Where(i => i.Name == ingredientName).Take(1);
+            var missingIngredients = new List<string>();
+            foreach (var ingredient in ingredientList)
+            {
+                var retrievedIngredient = Get(ingredient.Id);
+                if (retrievedIngredient.AmountInStock <= 0)
+                {
+                    missingIngredients.Add(retrievedIngredient.Name);
+                }
+            }
+
+            return missingIngredients;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace PizzaStorage.Repository
 {
     public interface IIngredientRepository : IRepository<Ingredient>
     {
-        Ingredient GetSpecificIngredient(string ingredientName);
+        IEnumerable<string> CheckForMissingIngredients(IEnumerable<Ingredient> ingredientList);
         IEnumerable<Ingredient> GetAllIngredients();
     }
 }

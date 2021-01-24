@@ -17,7 +17,7 @@ namespace PizzaStorage.Repository
         }
         public TEntity Get(int id)
         {
-            return Context.Set<TEntity>().Find();
+            return Context.Set<TEntity>().Find(id);
         }
 
         public IEnumerable<TEntity> GetAll()
