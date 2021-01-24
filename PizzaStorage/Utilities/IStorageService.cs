@@ -16,5 +16,6 @@ namespace PizzaStorage.Utilities
         void RestockSingleIngredient(int id);
         bool ReduceOrderedIngredients(List<Ingredient> ingredientsList);
         List<Ingredient> ConvertToIngredientList(object requestContent);
+        void ResetTests(string ingredientName, string actionPerformed);
     }
 }

@@ -100,6 +100,22 @@ namespace PizzaStorage.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("ResetTests")]
+        public IActionResult ResetTests([FromQuery] string ingredientName, [FromQuery] string actionPerformed)
+        {
+            if (ingredientName == null
+                || actionPerformed == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _storageService.ResetTests(ingredientName, actionPerformed);
+                return Ok();
+            }
+        }
+
         [HttpPost]
         [Route("order")]
         public IActionResult FinalizeOrder([FromBody] object requestContent)

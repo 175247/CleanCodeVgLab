@@ -104,5 +104,35 @@ namespace PizzaStorage.Utilities
                 return isIngredientPresent;
             }
         }
+
+        public void ResetTests(string ingredientName, string actionPerformed)
+        {
+            var allIngredients = _unitOfWork.Ingredients.GetAllIngredients();
+            var ingredient = allIngredients.Where(n => n.Name == ingredientName).FirstOrDefault();
+            if (actionPerformed == "addIngredients")
+            {
+                ingredient.AmountInStock -= 1;
+            }
+            else if (actionPerformed == "reduceIngredients")
+            {
+                ingredient.AmountInStock += 1;
+            }
+            else if (actionPerformed == "massDelivery")
+            {
+                foreach (var singleIngredient in allIngredients)
+                {
+                    singleIngredient.AmountInStock -= 10;
+                }
+            }
+            else if (actionPerformed == "orderMargerita")
+            {
+                ingredient = allIngredients.Where(n => n.Name == "Skinka").FirstOrDefault();
+                ingredient.AmountInStock += 1;
+                
+                ingredient = allIngredients.Where(n => n.Name == "Ananas").FirstOrDefault();
+                ingredient.AmountInStock += 1;
+            }
+            _unitOfWork.Complete();
+        }
     }
 }
