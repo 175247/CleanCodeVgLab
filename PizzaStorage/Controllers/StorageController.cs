@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PizzaStorage.Models;
 using PizzaStorage.Repository;
@@ -6,6 +7,7 @@ using PizzaStorage.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace PizzaStorage.Controllers
@@ -53,11 +55,16 @@ namespace PizzaStorage.Controllers
             }
         }
 
-        //[HttpPut]
-        [HttpGet]
+        [HttpPost]
         [Route("add")]
-        public IActionResult RestockIngredient([FromQuery] Ingredient ingredient)
+        public IActionResult RestockIngredient([FromBody]object requestContent)
         {
+            var ingredient = _storageService.ConvertToIngredient(requestContent);
+            if (ingredient.Id == 0)
+            {
+                return BadRequest();
+            }
+
             if(_storageService.PriceList.ContainsKey(ingredient.Name) == false)
             {
                 return BadRequest();
@@ -65,27 +72,23 @@ namespace PizzaStorage.Controllers
             else
             {
                 _storageService.RestockSingleIngredient(ingredient.Id);
-                return RedirectToAction("Index", "Home");
-                //return Created("Restock", ingredient);
+                return Created("Restock", ingredient);
             }
         }
 
-        //[HttpPut]
         [HttpGet]
         [Route("massdelivery")]
         public IActionResult MassDelivery()
         {
             _storageService.ReceiveMassDelivery();
-            return RedirectToAction("Index", "Home");
-            //return Ok();
+            return Ok();
         }
 
-        //[HttpDelete]
-        [HttpGet]
+        [HttpPost]
         [Route("remove")]
-        public IActionResult ReduceIngredientInStorage([FromQuery] Ingredient ingredient)
+        public IActionResult ReduceIngredientInStorage([FromBody]object requestContent)
         {
-            ingredient = _unitOfWork.Ingredients.Get(ingredient.Id);
+            var ingredient = _storageService.ConvertToIngredient(requestContent);
             if (ingredient.AmountInStock <= 0)
             {
                 return NotFound();
@@ -93,13 +96,11 @@ namespace PizzaStorage.Controllers
             else
             {
                 _storageService.ReduceAmountInStock(ingredient);
-                return RedirectToAction("Index", "Home");
-                //return Ok();
+                return Ok();
             }
         }
 
-        //[HttpDelete]
-        [HttpGet]
+        [HttpPost]
         [Route("order")]
         public IActionResult FinalizeOrder(List<Ingredient> ingredientsList)
         {

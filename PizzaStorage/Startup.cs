@@ -34,6 +34,7 @@ namespace PizzaStorage
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IStorageService, StorageService>();
+            services.AddScoped<IRequestService, RequestService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

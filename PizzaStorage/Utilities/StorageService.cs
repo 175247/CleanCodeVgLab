@@ -1,4 +1,5 @@
-﻿using PizzaStorage.Models;
+﻿using Newtonsoft.Json;
+using PizzaStorage.Models;
 using PizzaStorage.Repository;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,16 @@ namespace PizzaStorage.Utilities
             PriceList.Add("Koriander", 20);
         }
 
+        public Ingredient ConvertToIngredient(object value)
+        {
+            var stringContent = value.ToString();
+            var ingredient = JsonConvert.DeserializeObject<Ingredient>(stringContent);
+            return ingredient;
+        }
+
         public void ReduceAmountInStock(Ingredient ingredient)
         {
+            ingredient = _unitOfWork.Ingredients.Get(ingredient.Id);
             ingredient.AmountInStock -= 1;
             _unitOfWork.Complete();
         }

@@ -15,11 +15,11 @@
             <input type="hidden" name="Id" value="@item.Id" />
             <label id="@item.Name-label-name">@item.Name:</label>
             <label id="@item.Name-label-stock">@item.AmountInStock</label>
-            @Html.ActionLink("Add", "RestockIngredient", "Storage", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
-            @Html.ActionLink("Reduce", "ReduceIngredientInStorage", "Storage", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
+            @Html.ActionLink("Add", "RestockIngredient", "Home", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
+            @Html.ActionLink("Reduce", "ReduceIngredientInStorage", "Home", new { id = item.Id, name = item.Name, price = item.Price, amountInStock = item.AmountInStock })
         </div>
     }
     <br />
     <br />
-    @Html.ActionLink("Mass delivery!", "MassDelivery", "Storage")
+    @Html.ActionLink("Mass delivery!", "MassDelivery", "Home")
 </div>
