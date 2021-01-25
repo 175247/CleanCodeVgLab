@@ -1,16 +1,15 @@
 # CleanCodeVgLab
- Bygger på labb 3 gjord av Alexander Molnar och Simon Tillström.
- 
- Motivation till val av design patterns (labb 3 bas):
- 
- 1. Singleton (Menu)
- Vi resonerade att restauranger (generellt) bara använder sig av en meny, framför allt
- om det är en online-mat-beställnings-app eller liknande (Foodora t.ex.), och därför ville vi
- följa det mönstret.
- 
- 2. Builder (PizzaBuilder)
- När du gör en pizza så "bygger" du pizzan, och vi tänkte att vi skulle göra samma sak i vår kod.
- 
- 3. Factory (DrinkFactory, PizzaFactory)
-Vi ville ha ett objekt som bara returnerade pizzorna, men vi ville abstrahera en portion av logiken,
-men fortfarande använda vår builder, då man bygger pizzan.
+
+Simon Tillström
+
+
+Använt design pattern:
+Repository pattern.
+Detta var för att jag använde Entity Framework och jag ville att klasserna skulle vara lösare kopplade.
+Om jag använder EF nu men om en stund bestämmer mig för att prova på något annat så behöver jag bara ändra koden på väldigt få ställen och inte överallt där context används, och resten av programmet kommer fungera som vanligt. Det har alltså abstraherats bort mer. Repositoryt gör sitt jobb - hur den gör det är inte relevant för resten av programmet. Resterande program kör sitt race. Repository enkapsulerar också queries så att man inte återanvänder dem överallt.
+
+
+Kunde använt:
+Visitor pattern.
+Objekt ändras på många gånger, och Visitor hade kunnat göra det lätt och bra.
+Det valdes inte för att jag valde att fokusera på Repository Pattern då det verkar användas mer för bl.a. data access, loose coupling och reducering av repeterad kod med IQueryable, även om det kändes som lite overengineering för detta projekt.
