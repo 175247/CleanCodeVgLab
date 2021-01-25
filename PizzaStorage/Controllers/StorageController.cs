@@ -40,21 +40,6 @@ namespace PizzaStorage.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("checkstorage")]
-        public IActionResult GetIngredientStockStatus(List<Ingredient> ingredientsList)
-        {
-            var missingIngredients = _unitOfWork.Ingredients.CheckForMissingIngredients(ingredientsList).ToList();
-            if (missingIngredients.Count > 0)
-            {
-                return NotFound(missingIngredients);
-            }
-            else
-            {
-                return Ok();
-            }
-        }
-
         [HttpPost]
         [Route("add")]
         public IActionResult RestockIngredient([FromBody]object requestContent)

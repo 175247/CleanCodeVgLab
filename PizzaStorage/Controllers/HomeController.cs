@@ -35,18 +35,14 @@ namespace PizzaStorage.Controllers
         public async Task<IActionResult> RestockIngredient(int id)
         {
             var ingredient = _unitOfWork.Ingredients.Get(id);
-            var requestUri = "http://localhost/api/storage/add";
-            HttpContent requestContent = _requestService.CreateStringContent(ingredient);
-            await client.PostAsync(requestUri, requestContent);
+            await _requestService.HandleRequests("add", ingredient);
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> ReduceIngredientInStorage(int id)
         {
             var ingredient = _unitOfWork.Ingredients.Get(id);
-            var requestUri = "http://localhost/api/storage/remove";
-            HttpContent requestContent = _requestService.CreateStringContent(ingredient);
-            await client.PostAsync(requestUri, requestContent);
+            await _requestService.HandleRequests("remove", ingredient);
             return RedirectToAction("Index");
         }
 
@@ -60,23 +56,8 @@ namespace PizzaStorage.Controllers
         public async Task<IActionResult> OrderPizza()
         {
             var allIngredients = _unitOfWork.Ingredients.GetAllIngredients().ToList();
-            var skinka = allIngredients.Where(n => n.Name == "Skinka").FirstOrDefault();
-            var ananas = allIngredients.Where(n => n.Name == "Ananas").FirstOrDefault();
-
-            var pizza = new Pizza
-            {
-                Name = "Margerita",
-                Ingredients = new List<Ingredient>
-                {
-                    new Ingredient { Id = skinka.Id, Name = "Skinka", Price = skinka.Price, AmountInStock = skinka.AmountInStock },
-                    new Ingredient { Id = ananas.Id, Name = "Ananas", Price = ananas.Price, AmountInStock = ananas.AmountInStock },
-                },
-                Price = 85
-            };
-
-            var requestUri = "http://localhost/api/storage/order";
-            HttpContent requestContent = _requestService.CreateStringContent(pizza.Ingredients);
-            var response = await client.PostAsync(requestUri, requestContent);
+            var pizza = _requestService.CreatePizza(allIngredients);
+            var response = await _requestService.HandleRequests("order", pizza.Ingredients);
             if (response.IsSuccessStatusCode == false)
             {
                 TempData["status"] = "Ledsen kompis, ingen pizza till dig. Försök igen om kanske 15 minuter en kvart.";
@@ -85,6 +66,17 @@ namespace PizzaStorage.Controllers
             {
                 TempData["status"] = "Tack för ditt köp! Din pizza kommer om ett ögonblick.";
             }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult FullReset()
+        {
+            var allIngredients = _unitOfWork.Ingredients.GetAllIngredients();
+            foreach (var ingredient in allIngredients)
+            {
+                ingredient.AmountInStock = 10;
+            }
+            _unitOfWork.Complete();
             return RedirectToAction("Index");
         }
 

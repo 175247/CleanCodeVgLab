@@ -276,8 +276,8 @@ namespace CleanCodeLab3
             else
             {
                 message = "Inte tillräckligt med ingredienser, försök igen efter nästa leverans";
+                SetOrderToCancelled();
             }
-            SetOrderToCancelled();
             return message;
         }
 

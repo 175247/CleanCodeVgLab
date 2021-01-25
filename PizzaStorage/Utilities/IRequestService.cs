@@ -1,7 +1,5 @@
 ﻿using PizzaStorage.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -9,7 +7,8 @@ namespace PizzaStorage.Utilities
 {
     public interface IRequestService
     {
-        HttpContent CreateStringContent(Ingredient ingredient);
-        HttpContent CreateStringContent(List<Ingredient> ingredientsList);
+        Pizza CreatePizza(IEnumerable<Ingredient> allIngredients);
+        Task<HttpResponseMessage> HandleRequests(string endpoint, Ingredient ingredient);
+        Task<HttpResponseMessage> HandleRequests(string endpoint, List<Ingredient> ingredients);
     }
 }
