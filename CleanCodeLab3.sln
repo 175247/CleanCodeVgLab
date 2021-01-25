@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStorage", "PizzaStorag
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FCA479F7-A95F-450B-8E9E-C7BE5BFEAC71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStorageTests", "..\PizzaStorageTests\PizzaStorageTests.csproj", "{505793EC-F1D7-461D-8116-7F90D90D43FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStorageTests", "..\PizzaStorageTests\PizzaStorageTests.csproj", "{505793EC-F1D7-461D-8116-7F90D90D43FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
